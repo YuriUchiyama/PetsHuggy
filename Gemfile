@@ -18,7 +18,6 @@ gem 'toastr-rails'
 gem 'omniauth-facebook'
 gem 'certified'
 gem "figaro","~>1.1.0"
-gem 'sqlite3'
 gem "paperclip", "~> 5.0.0"
 gem 'dropzonejs-rails'
 
