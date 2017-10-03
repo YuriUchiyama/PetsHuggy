@@ -7,6 +7,20 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show]
 
+  resources :photos, only: [:create, :destroy] do
+    collection do
+      get :list 
+    end
+  end
+
+  resources :listings do 
+    resources :reservations, only: [:create]
+  end
+  
+  resources :conversations, only:[:index,:create] do
+    resources :messages, only:[:index,:create] 
+  end
+
   get 'manage-listing/:id/basics' => 'listings#basics', as: 'manage_listing_basics'
   get 'manage-listing/:id/description' => 'listings#description', as: 'manage_listing_description'
   get 'manage-listing/:id/address' => 'listings#address', as: 'manage_listing_address'

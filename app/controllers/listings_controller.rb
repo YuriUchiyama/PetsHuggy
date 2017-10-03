@@ -1,11 +1,13 @@
 class ListingsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_listing, only: [:update,:basics, :description, :address, :price, :photos, :calendar, :bankaccount, :publish]
+  before_action :set_listing, only: [:show, :update, :basics, :description, :address, :price, :photos, :calendar, :bankaccount, :publish]
 
   def index
+    @listings = current_user.listings
   end
 
   def show
+    
   end
 
   def new
@@ -29,7 +31,9 @@ class ListingsController < ApplicationController
   end
 
   def update
-    @Listing.update(listing_params)
+    if @listing.update(listing_params)
+      redirect_to :back, notice: "更新できました"
+    end
   end
 
   def basics
@@ -45,6 +49,7 @@ class ListingsController < ApplicationController
   end
 
   def photos
+    @photo = Photo.new
   end
 
   def calendar
@@ -60,7 +65,7 @@ class ListingsController < ApplicationController
 
   private
   def listing_params
-    params.require(:listing).permit(:home_type, :pet_type, :breeding_years, :pet_size,:price_pernight)
+    params.require(:listing).permit(:home_type, :pet_type, :breeding_years, :pet_size, :price_pernight, :address, :listing_title, :listing_content, :active)
   end
 
   def set_listing
